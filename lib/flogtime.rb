@@ -1,15 +1,17 @@
 require "flogtime/version"
 require 'flog'
+require 'grit'
 
 class Flogtime
   def self.for(file_path, number_of_commits = nil)
     Flogtime.new(file_path, number_of_commits).flog_method_averages
   end
 
-  attr_reader :number_of_commits, :file_path
-  def initialize(file_path, number_of_commits)
+  attr_reader :number_of_commits, :file_path, :repo_location
+  def initialize(file_path, number_of_commits, repo_location = ".")
     @file_path = file_path
     @number_of_commits = number_of_commits
+    @repo_location = repo_location
   end
 
   def flog_method_averages
@@ -37,17 +39,17 @@ class Flogtime
     flog_score("flog/method average")
   end
 
+  def repo
+    @repo ||= Grit::Repo.new(repo_location)
+  end
+
   def checkout(sha)
     `git checkout #{sha} 2>/dev/null`
   end
 
-  def git_log
-    log_lines = number_of_commits.nil? ? `git log #{file_path}` : `git log -n #{number_of_commits} #{file_path}`
-    log_lines.grep /^commit/
-  end
-
   def commits
-    git_log.map{|c| c.split.last}
+    p repo.commits
+    repo.commits.map{|c| c.sha}
   end
 end
 
