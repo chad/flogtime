@@ -48,7 +48,7 @@ class Flogtime
   end
 
   def commits
-    repo.commits
+    repo.commits('master', false)
   end
 end
 
