@@ -15,9 +15,9 @@ class Flogtime
   end
 
   def flog_method_averages
-    commits.reverse.map do |sha|
-      checkout(sha)
-      flog_method_average
+    commits.reverse.map do |commit|
+      checkout(commit.sha)
+      [commit.committed_date, flog_method_average]
     end
   end
 
@@ -48,7 +48,7 @@ class Flogtime
   end
 
   def commits
-    repo.commits.map{|c| c.sha}
+    repo.commits
   end
 end
 
