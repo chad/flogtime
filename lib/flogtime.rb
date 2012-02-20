@@ -48,7 +48,6 @@ class Flogtime
   end
 
   def commits
-    p repo.commits
     repo.commits.map{|c| c.sha}
   end
 end
