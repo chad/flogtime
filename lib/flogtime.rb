@@ -24,16 +24,16 @@ class Flogtime
 
   def flog_score(matcher)
     Float(
-      flog(file_path).grep(/#{matcher}/).join.split(/:/).first
+      flog.grep(/#{matcher}/).join.split(/:/).first
     )
   end
 
   def flog_total
-    flog_score(file_path, "flog total")
+    flog_score("flog total")
   end
 
   def flog_method_average
-    flog_score(file_path, "flog/method average")
+    flog_score("flog/method average")
   end
 
   def checkout(sha)
