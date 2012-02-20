@@ -1,2 +1,3 @@
+#!/usr/bin/env ruby
 require 'flogtime'
 p Flogtime.for(ARGV.first)

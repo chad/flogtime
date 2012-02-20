@@ -1,4 +1,5 @@
 require "flogtime/version"
+require 'flog'
 
 class Flogtime
   def self.for(file_path, number_of_commits = nil)
