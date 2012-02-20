@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
 require 'flogtime'
-p Flogtime.for(ARGV.first)
+Flogtime.for(ARGV.first).each do |date, score|
+  puts "#{date}, #{score}"
+end
