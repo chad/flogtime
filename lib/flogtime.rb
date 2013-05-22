@@ -22,7 +22,7 @@ class Flogtime
   end
 
   def flog
-    `flog #{file_path}`
+    `flog #{file_path}`.split(/\n/)
   end
 
   def flog_score(matcher)
@@ -45,6 +45,11 @@ class Flogtime
 
   def checkout(sha)
     `git checkout #{sha} 2>/dev/null`
+  end
+
+  def git_log
+    log_lines = number_of_commits.nil? ? `git log #{file_path}` : `git log -n #{number_of_commits} #{file_path}`
+    log_lines.split(/\n/).grep /^commit/
   end
 
   def commits
